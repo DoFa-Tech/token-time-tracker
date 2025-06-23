@@ -5,8 +5,9 @@ const path = require('path');
 const https = require('https');
 const http = require('http');
 
-// API URL constant (empty for now)
+// API URL constant
 const API_URL = 'https://tokenti.me/api';
+const API_URL_TEST = 'http://localhost:3000/api';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -29,7 +30,7 @@ if (!userId) {
 }
 
 // Determine API endpoint
-const apiUrl = isTest ? 'http://localhost:8787/api' : API_URL;
+const apiUrl = isTest ? API_URL_TEST : API_URL;
 
 if (!apiUrl) {
   console.error('Error: API_URL is not configured and --test flag was not provided');
@@ -95,10 +96,9 @@ async function main() {
     
     // Post to API
     const fullApiUrl = `${apiUrl}/usage`;
-    console.log(`Sending usage data for user ${userId} to ${fullApiUrl}...`);
-    console.log(payload);
+    console.log(`Uploading usage data...`);
     const response = await postData(fullApiUrl, payload);
-    console.log('Success! Server responded with:', response.status);
+    console.log('Success! You can check your usage at https://tokenti.me');
     
   } catch (error) {
     if (error.message.includes('ccusage')) {
