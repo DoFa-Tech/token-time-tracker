@@ -11,5 +11,8 @@
   },
   "keywords": ["hello", "world", "npx"],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ccusage": "*"
+  }
 }
