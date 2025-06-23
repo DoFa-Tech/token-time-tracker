@@ -6,7 +6,7 @@ const https = require('https');
 const http = require('http');
 
 // API URL constant (empty for now)
-const API_URL = '';
+const API_URL = 'https://tokenti.me/api';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -29,7 +29,7 @@ if (!userId) {
 }
 
 // Determine API endpoint
-const apiUrl = isTest ? 'http://localhost:3000/api' : API_URL;
+const apiUrl = isTest ? 'http://localhost:8787/api' : API_URL;
 
 if (!apiUrl) {
   console.error('Error: API_URL is not configured and --test flag was not provided');
