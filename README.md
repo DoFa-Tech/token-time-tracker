@@ -1,6 +1,5 @@
-# token-time-tracker
-
-Track and report Claude Code usage metrics to an API.
+# TokenTi.me Tracker
+> Pulls your Claude Code token usage and costs from local JSONL files (using [ccusage](https://www.npmjs.com/package/ccusage)) and pushes them to TokenTi.me API for web analytics. Hevaily inspired and built on top of ccusage.
 
 ## Installation
 
@@ -21,14 +20,14 @@ npx token-time-tracker <userId> [--test]
 token-time-tracker <userId>
 ```
 
-This will fetch your Claude Code usage data and send it to the configured API endpoint.
+This will fetch your Claude Code usage data and send it to the TokenTi.me API endpoint. You can get your userId from the [Token Time Website](https://tokenti.me).
 
 ### Test Mode
 ```bash
 token-time-tracker <userId> --test
 ```
 
-In test mode, the tool will send data to `http://localhost:8787/api` instead of the production API.
+In test mode, the tool will send data to `http://localhost:3000/api` instead of the production API.
 
 ## What it does
 
@@ -54,4 +53,4 @@ In test mode, the tool will send data to `http://localhost:8787/api` instead of 
 
 ## License
 
-ISC
+MIT
