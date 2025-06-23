@@ -1,7 +1,7 @@
 {
   "name": "token-time-tracker",
   "version": "1.0.0",
-  "description": "A simple hello world npm package",
+  "description": "Track and report Claude Code usage metrics to an API",
   "main": "index.js",
   "bin": {
     "token-time-tracker": "./index.js"
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["hello", "world", "npx"],
+  "keywords": ["claude", "usage", "metrics", "tracker", "api"],
   "author": "",
   "license": "ISC",
   "dependencies": {
