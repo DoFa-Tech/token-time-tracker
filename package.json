@@ -11,7 +11,7 @@
   },
   "keywords": ["claude", "usage", "metrics", "tracker", "api"],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "ccusage": "*"
   }
