@@ -123,9 +123,7 @@ async function main() {
       console.log('Could not get last update day, fetching all data...');
     }
     
-    // Use the locally installed ccusage
-    const ccusagePath = path.join(__dirname, 'node_modules', '.bin', 'ccusage');
-    let ccusageCommand = `${ccusagePath} daily --json --breakdown`;
+    let ccusageCommand = `ccusage daily --json --breakdown`;
     
     // Add --since parameter if lastUpdateDay is provided
     if (lastUpdateDay) {
