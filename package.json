@@ -1,0 +1,15 @@
+{
+  "name": "token-time-tracker",
+  "version": "1.0.0",
+  "description": "A simple hello world npm package",
+  "main": "index.js",
+  "bin": {
+    "token-time-tracker": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["hello", "world", "npx"],
+  "author": "",
+  "license": "ISC"
+}
