@@ -1,6 +1,6 @@
 {
   "name": "token-time-tracker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Uses ccusage to get Claude Code spending on MAX plan and pushes it to tokenti.me API.",
   "main": "index.js",
   "bin": {
