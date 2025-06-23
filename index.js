@@ -75,11 +75,59 @@ async function postData(url, data) {
   });
 }
 
+async function getData(url) {
+  return new Promise((resolve, reject) => {
+    const urlObj = new URL(url);
+    const options = {
+      hostname: urlObj.hostname,
+      port: urlObj.port,
+      path: urlObj.pathname + urlObj.search,
+      method: 'GET'
+    };
+
+    const protocol = urlObj.protocol === 'https:' ? https : http;
+    
+    const req = protocol.request(options, (res) => {
+      let responseData = '';
+      
+      res.on('data', (chunk) => {
+        responseData += chunk;
+      });
+      
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve({ status: res.statusCode, data: responseData });
+        } else {
+          reject(new Error(`HTTP ${res.statusCode}: ${responseData}`));
+        }
+      });
+    });
+    
+    req.on('error', reject);
+    req.end();
+  });
+}
+
 async function main() {
   try {
+    // First, get the last update day from the API
+    const getLastUpdateUrl = `${apiUrl}/get_last_update_day?userId=${userId}`;
+    console.log('Getting last update day...');
+    const lastUpdateResponse = await getData(getLastUpdateUrl);
+    const lastUpdateData = JSON.parse(lastUpdateResponse.data);
+    
+    console.log('Last update day:', lastUpdateData.lastUpdateDay);
+    
     // Use the locally installed ccusage
     const ccusagePath = path.join(__dirname, 'node_modules', '.bin', 'ccusage');
-    const output = execSync(`${ccusagePath} daily --json --breakdown`, { encoding: 'utf8' });
+    let ccusageCommand = `${ccusagePath} daily --json --breakdown`;
+    
+    // Add --since parameter if lastUpdateDay is provided
+    if (lastUpdateData.lastUpdateDay) {
+      ccusageCommand += ` --since "${lastUpdateData.lastUpdateDay}"`;
+    }
+    
+    const output = execSync(ccusageCommand, { encoding: 'utf8' });
     
     // Parse the JSON output
     const ccusageData = JSON.parse(output);
@@ -105,6 +153,8 @@ async function main() {
       console.error('Error running ccusage command:', error.message);
     } else if (error.message.includes('JSON')) {
       console.error('Error parsing ccusage output:', error.message);
+    } else if (error.message.includes('get_last_update_day')) {
+      console.error('Error getting last update day:', error.message);
     } else {
       console.error('Error posting data to API:', error.message);
     }
