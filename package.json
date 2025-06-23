@@ -1,7 +1,7 @@
 {
   "name": "token-time-tracker",
-  "version": "1.0.0",
-  "description": "Track and report Claude Code usage metrics to an API",
+  "version": "1.0.1",
+  "description": "Uses ccusage to get Claude Code spending on MAX plan and pushes it to tokenti.me API.",
   "main": "index.js",
   "bin": {
     "token-time-tracker": "./index.js"
@@ -10,7 +10,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["claude", "usage", "metrics", "tracker", "api"],
-  "author": "",
+  "author": "Dogu Deniz Ugur",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoFa-Tech/token-time-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DoFa-Tech/token-time-tracker/issues"
+  },
+  "homepage": "https://github.com/DoFa-Tech/token-time-tracker#readme",
   "license": "MIT",
   "dependencies": {
     "ccusage": "*"
