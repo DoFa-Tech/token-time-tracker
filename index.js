@@ -110,21 +110,26 @@ async function getData(url) {
 
 async function main() {
   try {
-    // First, get the last update day from the API
-    const getLastUpdateUrl = `${apiUrl}/get_last_update_day?userId=${userId}`;
-    console.log('Getting last update day...');
-    const lastUpdateResponse = await getData(getLastUpdateUrl);
-    const lastUpdateData = JSON.parse(lastUpdateResponse.data);
-    
-    console.log('Last update day:', lastUpdateData.lastUpdateDay);
+    // Try to get the last update day from the API
+    let lastUpdateDay = null;
+    try {
+      const getLastUpdateUrl = `${apiUrl}/get_last_update_day?userId=${userId}`;
+      console.log('Getting last update day...');
+      const lastUpdateResponse = await getData(getLastUpdateUrl);
+      const lastUpdateData = JSON.parse(lastUpdateResponse.data);
+      lastUpdateDay = lastUpdateData.lastUpdateDay;
+      console.log('Last update day:', lastUpdateDay);
+    } catch (lastUpdateError) {
+      console.log('Could not get last update day, fetching all data...');
+    }
     
     // Use the locally installed ccusage
     const ccusagePath = path.join(__dirname, 'node_modules', '.bin', 'ccusage');
     let ccusageCommand = `${ccusagePath} daily --json --breakdown`;
     
     // Add --since parameter if lastUpdateDay is provided
-    if (lastUpdateData.lastUpdateDay) {
-      ccusageCommand += ` --since "${lastUpdateData.lastUpdateDay}"`;
+    if (lastUpdateDay) {
+      ccusageCommand += ` --since "${lastUpdateDay}"`;
     }
     
     const output = execSync(ccusageCommand, { encoding: 'utf8' });
@@ -145,7 +150,7 @@ async function main() {
     // Post to API
     const fullApiUrl = `${apiUrl}/usage`;
     console.log(`Uploading usage data...`);
-    const response = await postData(fullApiUrl, payload);
+    await postData(fullApiUrl, payload);
     console.log('Success! You can check your usage at https://tokenti.me');
     
   } catch (error) {
@@ -153,8 +158,6 @@ async function main() {
       console.error('Error running ccusage command:', error.message);
     } else if (error.message.includes('JSON')) {
       console.error('Error parsing ccusage output:', error.message);
-    } else if (error.message.includes('get_last_update_day')) {
-      console.error('Error getting last update day:', error.message);
     } else {
       console.error('Error posting data to API:', error.message);
     }
