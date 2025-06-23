@@ -27,6 +27,6 @@
   "homepage": "https://github.com/DoFa-Tech/token-time-tracker#readme",
   "license": "MIT",
   "dependencies": {
-    "ccusage": "^15.2.0"
+    "ccusage": "latest"
   }
 }
