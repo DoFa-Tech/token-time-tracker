@@ -1,6 +1,6 @@
 {
   "name": "token-time-tracker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Uses ccusage to get Claude Code spending on MAX plan and pushes it to tokenti.me API.",
   "main": "index.js",
   "bin": {
@@ -9,7 +9,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["claude", "usage", "metrics", "tracker", "api"],
+  "keywords": [
+    "claude",
+    "usage",
+    "metrics",
+    "tracker",
+    "api"
+  ],
   "author": "Dogu Deniz Ugur",
   "repository": {
     "type": "git",
